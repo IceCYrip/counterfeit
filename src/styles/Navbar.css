@@ -1,0 +1,35 @@
+.wrapper {
+  padding: 20px 75px;
+
+  background-color: rgba(0, 7, 45, 1);
+  color: rgba(255, 251, 251, 1);
+  text-transform: uppercase;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.navMenus {
+  display: flex;
+  column-gap: 20px;
+  user-select: none;
+}
+
+.navMenus a {
+  transition: 0.2s ease-in;
+}
+
+.wrapper a {
+  color: white;
+  text-decoration: none;
+}
+
+.wrapper b {
+  font-size: large;
+  user-select: none;
+}
+
+.wrapper a:hover {
+  color: "grey";
+  transition: 0.2s ease-in;
+}

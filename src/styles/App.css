@@ -1,0 +1,58 @@
+.homeWrapper {
+  background-color: rgba(217, 243, 254, 1);
+  height: 100vh;
+}
+
+.homeBody {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  height: 91vh;
+
+  user-select: none;
+}
+
+.dashboardImg {
+  height: 65vh;
+  border-radius: 30px;
+}
+
+.bodyLeft {
+  width: 70vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  user-select: none;
+
+  font-family: sans-serif;
+  font-size: large;
+}
+
+.bodyLeft > h1 {
+  color: black;
+  font-style: italic;
+}
+
+.bttnGrp {
+  display: flex;
+  justify-content: space-evenly;
+
+  column-gap: 20px;
+
+  user-select: none;
+}
+
+.dashboardButton > a {
+  padding: 8px 16px;
+
+  background-color: rgba(0, 28, 85, 1);
+  color: rgba(255, 255, 255, 1);
+
+  border-radius: 10px;
+  user-select: none;
+  cursor: pointer;
+  text-decoration: none;
+}
