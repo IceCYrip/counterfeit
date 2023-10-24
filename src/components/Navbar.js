@@ -29,7 +29,7 @@ const Index = () => {
             to={obj.url}
             onClick={() => setMenu(obj.label)}
             style={{
-              color: activeMenu == obj.label ? '#ffff90' : 'white',
+              color: activeMenu === obj.label ? '#ffff90' : 'white',
             }}
           >
             {obj.label}
