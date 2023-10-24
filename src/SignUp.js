@@ -8,11 +8,7 @@ const SignUp = () => {
       <Navbar />
       <div className='signUpBody'>
         <div className='bodyLeft'>
-          <img
-            className='signUpImage'
-            src='/loginPage.png'
-            alt='Sign Up Image'
-          />
+          <img className='signUpImage' src='/loginPage.png' alt='Sign Up' />
         </div>
         <div className='bodyRight'>
           <div className='formContainer'>
