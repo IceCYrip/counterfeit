@@ -1,5 +1,6 @@
 .wrapper {
   padding: 20px 75px;
+  height: 3.5vh;
 
   background-color: rgba(0, 7, 45, 1);
   color: rgba(255, 251, 251, 1);
@@ -30,6 +31,6 @@
 }
 
 .wrapper a:hover {
-  color: "grey";
+  color: 'grey';
   transition: 0.2s ease-in;
 }

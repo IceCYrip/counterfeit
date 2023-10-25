@@ -1,8 +1,11 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import './styles/SignUp.css'
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
+  const routeTo = useNavigate()
+
   return (
     <div className='signUpWrapper'>
       <Navbar />
@@ -40,7 +43,10 @@ const SignUp = () => {
               </button>
               <label className='signInText'>
                 Already have an account?{' '}
-                <label className='signInLink' onClick={() => {}}>
+                <label
+                  className='signInLink'
+                  onClick={() => routeTo('/manufacturer')}
+                >
                   Sign in
                 </label>
               </label>
