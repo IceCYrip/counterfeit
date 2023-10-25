@@ -1,6 +1,9 @@
 const express = require('express')
 const Product = require('../models/Product')
 const router = express.Router()
+const qr = require('qrcode')
+
+const frontendServerURL = 'http://localhost:3000'
 
 //Route 1: Create a product
 router.post('/createProduct', async (req, res) => {
@@ -28,8 +31,29 @@ router.post('/createProduct', async (req, res) => {
           price: req.body.price,
           dateOfManufacture: req.body.dateOfManufacture,
           userID: req.body.userID,
+          qrCode: '',
         })
       }
+
+      // The URL you want to encode in the QR code
+      const urlToRedirect = `${frontendServerURL}/${product?._id}`
+
+      // Generate the QR code as a data URL
+      qr.toDataURL(urlToRedirect, async (err, data_url) => {
+        if (err) {
+          console.error(err)
+        } else {
+          // Store the QR code as a data URL in the qrCodeURL variable
+
+          const updatedData = {
+            qrCode: data_url,
+          }
+
+          product = await Product.findByIdAndUpdate(product?._id, updatedData, {
+            new: true,
+          })
+        }
+      })
 
       const data = { message: 'Product created Successfully' }
       res.status(200).json(data)
@@ -68,7 +92,7 @@ router.post('/getProduct', async (req, res) => {
   }
 })
 
-//Route 2: Get product details
+//Route 3: Get product details
 router.post('/getUserWiseProducts', async (req, res) => {
   try {
     if (!!req.body.userID) {
@@ -85,6 +109,25 @@ router.post('/getUserWiseProducts', async (req, res) => {
         }))
 
         res.status(200).json(data)
+      } else {
+        res.status(404).send('Product not found')
+      }
+    } else {
+      res.status(400).json({ message: 'Product ID not found' })
+    }
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send('Internal Server Error')
+  }
+})
+
+//Route 4: Get product's QR Code
+router.post('/getQRCode', async (req, res) => {
+  try {
+    if (!!req.body.productID) {
+      let product = await Product.findOne({ _id: req.body.productID })
+      if (product) {
+        res.status(200).send(product?.qrCode)
       } else {
         res.status(404).send('Product not found')
       }
