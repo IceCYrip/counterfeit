@@ -20,6 +20,11 @@
   transition: 0.2s ease-in;
 }
 
+.logoutImg {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
 .wrapper a {
   color: white;
   text-decoration: none;

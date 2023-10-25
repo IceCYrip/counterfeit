@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/Dashboard.css'
 
 import Modal from './Modal'
+import backendURL from '../url'
+import axios from 'axios'
 
 const ManufacturerDashboard = () => {
   const [brand, setBrand] = useState('')
@@ -10,44 +12,32 @@ const ManufacturerDashboard = () => {
   const [price, setPrice] = useState('')
   const [dateOfManufacture, setDateOfManufacture] = useState('')
   const [modal, setModal] = useState(false)
+  const [runAgain, setRunAgain] = useState(false)
 
-  const [Data, setData] = useState([
-    {
-      brand: 'Adidas',
-      productID: 'PID_110',
-      batchNo: 10,
-      price: 349,
-      dateOfManufacture: '10-10-2023',
-    },
-    {
-      brand: 'Calvin Klein',
-      productID: 'PID_111',
-      batchNo: 11,
-      price: 399,
-      dateOfManufacture: '11-10-2023',
-    },
-    {
-      brand: 'Reebok',
-      productID: 'PID_112',
-      batchNo: 12,
-      price: 249,
-      dateOfManufacture: '12-10-2023',
-    },
-    {
-      brand: 'Puma',
-      productID: 'PID_113',
-      batchNo: 13,
-      price: 599,
-      dateOfManufacture: '13-10-2023',
-    },
-    {
-      brand: 'Nike',
-      productID: 'PID_114',
-      batchNo: 14,
-      price: 299,
-      dateOfManufacture: '14-10-2023',
-    },
-  ])
+  const [Data, setData] = useState([])
+
+  const userData = JSON.parse(localStorage.getItem('userData') ?? '')
+
+  useEffect(() => {
+    setRunAgain(false)
+
+    axios
+      .post(`${backendURL}/product/getUserWiseProducts`, {
+        userID: userData?.id,
+      })
+      .then((res) => {
+        setData(
+          res.data?.map((obj) => ({
+            brand: obj?.brand,
+            productID: obj?.productID,
+            batchNo: obj?.batchNo,
+            price: obj?.price,
+            dateOfManufacture: obj?.dateOfManufacture,
+          }))
+        )
+      })
+      .catch((error) => window.alert('Something went wrong'))
+  }, [runAgain])
 
   const addProduct = () => {
     if (!!brand && !!productID && !!batchNo && !!price && !!dateOfManufacture) {
@@ -58,16 +48,23 @@ const ManufacturerDashboard = () => {
   }
 
   const finalSubmit = () => {
-    setData((prev) => [
-      ...prev,
-      {
-        brand: brand,
-        productID: productID,
-        batchNo: batchNo,
-        price: price,
-        dateOfManufacture: dateOfManufacture,
-      },
-    ])
+    const bodyForAPI = {
+      brand: brand,
+      productID: productID,
+      batchNo: batchNo,
+      price: price,
+      dateOfManufacture: dateOfManufacture,
+      userID: userData?.id,
+    }
+
+    axios
+      .post(`${backendURL}/product/createProduct`, bodyForAPI)
+      .then((res) => {
+        window.alert('Product added successfully')
+        setRunAgain(true)
+      })
+      .catch((error) => window.alert('Something went wrong'))
+
     setBrand('')
     setProductID('')
     setBatchNo('')
@@ -139,54 +136,63 @@ const ManufacturerDashboard = () => {
         <table className='productTable'>
           <tbody>
             <tr className='tableData'>
-              <th style={{ width: 50, borderTopLeftRadius: 15 }}>Sr. No</th>
+              <th style={{ width: 50, borderTopLeftRadius: 10 }}>Sr. No</th>
               <th style={{ width: 250 }}>Brand</th>
               <th style={{ width: 200 }}>Product ID</th>
               <th style={{ width: 175 }}>Batch Number</th>
               <th style={{ width: 175 }}>Price</th>
-              <th style={{ width: 175, borderTopRightRadius: 15 }}>
+              <th style={{ width: 175, borderTopRightRadius: 10 }}>
                 Date of Manufacture
               </th>
             </tr>
 
-            {Data?.map((data, i) => (
+            {Data?.length > 0 ? (
+              Data?.map((data, i) => (
+                <tr className='tableData' key={i}>
+                  <td
+                    style={{
+                      borderBottomLeftRadius: i === Data.length - 1 ? 10 : 0,
+                    }}
+                  >
+                    {i + 1}
+                  </td>
+                  <td>{data?.brand}</td>
+                  <td>{data?.productID}</td>
+                  <td>{data?.batchNo}</td>
+                  <td>Rs. {data?.price}</td>
+                  <td
+                    style={{
+                      borderBottomRightRadius: i === Data.length - 1 ? 10 : 0,
+                    }}
+                  >
+                    {data?.dateOfManufacture}
+                  </td>
+                </tr>
+              ))
+            ) : (
               <tr className='tableData'>
                 <td
+                  colSpan={6}
                   style={{
-                    borderBottomLeftRadius: i === Data.length - 1 ? 15 : 0,
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
                   }}
                 >
-                  {i + 1}
-                </td>
-                <td>{data?.brand}</td>
-                <td>{data?.productID}</td>
-                <td>{data?.batchNo}</td>
-                <td>Rs. {data?.price}</td>
-                <td
-                  style={{
-                    borderBottomRightRadius: i === Data.length - 1 ? 15 : 0,
-                  }}
-                >
-                  {data?.dateOfManufacture}
+                  No Products found
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
       {modal && (
         <Modal
           data={{
-            // brand: brand,
-            // productID: productID,
-            // batchNo: batchNo,
-            // price: price,
-            // dateOfManufacture: dateOfManufacture,
-            brand: 'brand123',
-            productID: 'productID123',
-            batchNo: '',
-            price: 'price123',
-            dateOfManufacture: 'dateOfManufacture123',
+            brand: brand,
+            productID: productID,
+            batchNo: batchNo,
+            price: price,
+            dateOfManufacture: dateOfManufacture,
           }}
           details={[
             { label: 'Brand', keyName: 'brand' },

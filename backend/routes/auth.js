@@ -27,7 +27,7 @@ router.post('/createuser', async (req, res) => {
     }
   } catch (error) {
     console.error(error.message)
-    res.status(500).status('Internal Server Error')
+    res.status(500).send('Internal Server Error')
   }
 })
 
@@ -51,6 +51,8 @@ router.post('/login', async (req, res) => {
     } else {
       res.status(400).json({ message: 'Incorrect credentials' })
     }
+  } else {
+    res.status(400).json({ message: 'Incorrect credentials' })
   }
 })
 

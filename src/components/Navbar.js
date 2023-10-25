@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/Navbar.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Index = () => {
   const menus = [
@@ -10,10 +10,27 @@ const Index = () => {
     { label: 'Support', url: '/support' },
   ]
 
+  const routeTo = useNavigate()
+
   const activeMenu = localStorage.getItem('activeMenu')
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    Boolean(localStorage.getItem('isLoggedIn'))
+  )
 
   const setMenu = (activeMenu) => {
     localStorage.setItem('activeMenu', activeMenu)
+  }
+
+  console.log('isLoggedIn: ', isLoggedIn)
+
+  const logout = () => {
+    localStorage.removeItem('isLoggedIn')
+    localStorage.removeItem('userType')
+    localStorage.removeItem('userData')
+
+    setIsLoggedIn(false)
+
+    routeTo('/')
   }
 
   return (
@@ -23,9 +40,10 @@ const Index = () => {
           Detectify
         </Link>
       </b>
-      <div class='navMenus'>
-        {menus?.map((obj) => (
+      <div className='navMenus'>
+        {menus?.map((obj, i) => (
           <Link
+            key={i}
             to={obj.url}
             onClick={() => setMenu(obj.label)}
             style={{
@@ -35,6 +53,14 @@ const Index = () => {
             {obj.label}
           </Link>
         ))}
+        {isLoggedIn && (
+          <img
+            src='/Logout.svg'
+            alt='logout'
+            className='logoutImg'
+            onClick={() => logout()}
+          />
+        )}
       </div>
     </div>
   )

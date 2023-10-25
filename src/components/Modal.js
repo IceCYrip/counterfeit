@@ -10,8 +10,8 @@ const Modal = ({ data, details, okay, open }) => {
 
         <table className='productDetails'>
           <tbody>
-            {details?.map((obj) => (
-              <tr>
+            {details?.map((obj, i) => (
+              <tr key={i}>
                 <td className='boldLabel'>{obj?.label}</td>
                 <td className='colonSeperater'>:</td>
                 <td className={!!data[obj?.keyName] ? '' : 'notFound'}>

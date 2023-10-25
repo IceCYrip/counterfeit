@@ -23,6 +23,14 @@ const ProductSchema = new Schema({
     type: String,
     require: true,
   },
+  userID: {
+    type: String,
+    require: true,
+  },
+  qrCode: {
+    type: String,
+    require: false,
+  },
 })
 const Product = mongoose.model('product', ProductSchema)
 module.exports = Product

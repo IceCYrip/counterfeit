@@ -10,6 +10,7 @@ router.post('/createProduct', async (req, res) => {
       !!req.body.productID &&
       !!req.body.batchNo &&
       !!req.body.price &&
+      !!req.body.userID &&
       !!req.body.dateOfManufacture
     ) {
       // Check whether the user with this email exists already
@@ -26,6 +27,7 @@ router.post('/createProduct', async (req, res) => {
           batchNo: req.body.batchNo,
           price: req.body.price,
           dateOfManufacture: req.body.dateOfManufacture,
+          userID: req.body.userID,
         })
       }
 
@@ -34,7 +36,7 @@ router.post('/createProduct', async (req, res) => {
     }
   } catch (error) {
     console.error(error.message)
-    res.status(500).status('Internal Server Error')
+    res.status(500).send('Internal Server Error')
   }
 })
 
@@ -58,11 +60,40 @@ router.post('/getProduct', async (req, res) => {
         res.status(404).send('Product not found')
       }
     } else {
-      res.status(400).json({ message: 'Product id not found' })
+      res.status(400).json({ message: 'Product ID not found' })
     }
   } catch (error) {
     console.error(error.message)
-    res.status(500).status('Internal Server Error')
+    res.status(500).send('Internal Server Error')
+  }
+})
+
+//Route 2: Get product details
+router.post('/getUserWiseProducts', async (req, res) => {
+  try {
+    if (!!req.body.userID) {
+      let product = await Product.find({ userID: req.body.userID })
+      if (product) {
+        const data = product?.map((j) => ({
+          id: j?._id,
+          brand: j?.brand,
+          productID: j?.productID,
+          batchNo: j?.batchNo,
+          price: j?.price,
+          dateOfManufacture: j?.dateOfManufacture,
+          qrCode: j?.qrCode ?? 'No QR Code',
+        }))
+
+        res.status(200).json(data)
+      } else {
+        res.status(404).send('Product not found')
+      }
+    } else {
+      res.status(400).json({ message: 'Product ID not found' })
+    }
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send('Internal Server Error')
   }
 })
 
