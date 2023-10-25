@@ -14,6 +14,7 @@ const ManufacturerDashboard = () => {
   const [modal, setModal] = useState(false)
   const [runAgain, setRunAgain] = useState(false)
 
+  const [qrCode, setQRCode] = useState('')
   const [Data, setData] = useState([])
 
   const userData = JSON.parse(localStorage.getItem('userData') ?? '')
@@ -61,16 +62,11 @@ const ManufacturerDashboard = () => {
       .post(`${backendURL}/product/createProduct`, bodyForAPI)
       .then((res) => {
         window.alert('Product added successfully')
+        setQRCode(res.data?.qrCode)
         setRunAgain(true)
+        // setModal(false)
       })
       .catch((error) => window.alert('Something went wrong'))
-
-    setBrand('')
-    setProductID('')
-    setBatchNo('')
-    setPrice('')
-    setDateOfManufacture('')
-    setModal(false)
   }
   return (
     <div className='manufacturerWrapper'>
@@ -203,6 +199,16 @@ const ManufacturerDashboard = () => {
           ]}
           open={setModal}
           okay={finalSubmit}
+          qrCode={qrCode}
+          onClose={() => {
+            setBrand('')
+            setProductID('')
+            setBatchNo('')
+            setPrice('')
+            setDateOfManufacture('')
+            setQRCode('')
+            setModal(false)
+          }}
         />
       )}
     </div>

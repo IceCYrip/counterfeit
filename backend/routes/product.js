@@ -42,6 +42,7 @@ router.post('/createProduct', async (req, res) => {
       qr.toDataURL(urlToRedirect, async (err, data_url) => {
         if (err) {
           console.error(err)
+          res.status(500).send('Error occurred while generating QR Code')
         } else {
           // Store the QR code as a data URL in the qrCodeURL variable
 
@@ -53,10 +54,13 @@ router.post('/createProduct', async (req, res) => {
             new: true,
           })
         }
+        console.log('inside:', product)
+        const data = {
+          message: 'Product created Successfully',
+          qrCode: product?.qrCode,
+        }
+        res.status(200).json(data)
       })
-
-      const data = { message: 'Product created Successfully' }
-      res.status(200).json(data)
     }
   } catch (error) {
     console.error(error.message)

@@ -17,7 +17,7 @@
   background-color: rgba(255, 255, 255, 1);
 
   width: 40%;
-  padding: 25px 15px;
+  padding: 40px 15px;
 
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.7);
 
@@ -49,19 +49,31 @@
   text-transform: uppercase;
 }
 
+.qrCode {
+  margin-top: 25px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.qrCode > h3 {
+  margin: 0px;
+}
+
 .modalBttnGrp {
-  margin-top: 10px;
+  /* margin-top: 5px; */
 
   width: 100%;
 
   display: flex;
   justify-content: center;
   column-gap: 50px;
-  /* background-color: red; */
 }
 
 .okayButton {
-  margin-top: 25px;
+  margin-top: 20px;
   min-width: 100px;
 
   padding: 8px 12px;
@@ -78,7 +90,7 @@
 }
 
 .cancelButton {
-  margin-top: 25px;
+  margin-top: 20px;
   min-width: 100px;
 
   padding: 8px 15px;
