@@ -49,7 +49,7 @@ const Manufacturer = () => {
           <div className='inputFieldsContainer'>
             <label htmlFor='password'>Password</label>
             <input
-              type='text'
+              type='password'
               placeholder='Enter Password'
               name='password'
               onChange={(e) => setPassword(e.target.value)}
