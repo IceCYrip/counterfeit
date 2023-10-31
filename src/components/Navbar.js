@@ -14,14 +14,12 @@ const Index = () => {
 
   const activeMenu = localStorage.getItem('activeMenu')
   const [isLoggedIn, setIsLoggedIn] = useState(
-    Boolean(localStorage.getItem('isLoggedIn'))
+    localStorage.getItem('isLoggedIn') || 'false'
   )
 
   const setMenu = (activeMenu) => {
     localStorage.setItem('activeMenu', activeMenu)
   }
-
-  console.log('isLoggedIn: ', isLoggedIn)
 
   const logout = () => {
     localStorage.removeItem('isLoggedIn')

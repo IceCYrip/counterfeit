@@ -12,6 +12,16 @@ const ManufacturerDashboard = () => {
   const [price, setPrice] = useState('')
   const [dateOfManufacture, setDateOfManufacture] = useState('')
   const [modal, setModal] = useState(false)
+
+  const [modalData, setModalData] = useState({
+    id: '',
+    brand: '',
+    productID: '',
+    batchNo: '',
+    price: '',
+    dateOfManufacture: '',
+  })
+
   const [runAgain, setRunAgain] = useState(false)
 
   const [qrCode, setQRCode] = useState('')
@@ -29,19 +39,43 @@ const ManufacturerDashboard = () => {
       .then((res) => {
         setData(
           res.data?.map((obj) => ({
+            id: obj?.id,
             brand: obj?.brand,
             productID: obj?.productID,
             batchNo: obj?.batchNo,
             price: obj?.price,
             dateOfManufacture: obj?.dateOfManufacture,
+            qrCode: obj?.qrCode,
           }))
         )
       })
       .catch((error) => window.alert('Something went wrong'))
   }, [runAgain])
 
+  useEffect(() => {
+    if (!modal) {
+      setQRCode({})
+    }
+    // !modal &&
+    //   setModalData({
+    //     id: '',
+    //     brand: '',
+    //     productID: '',
+    //     batchNo: '',
+    //     price: '',
+    //     dateOfManufacture: '',
+    //   })
+  }, [modal])
+
   const addProduct = () => {
     if (!!brand && !!productID && !!batchNo && !!price && !!dateOfManufacture) {
+      setModalData({
+        brand: brand,
+        productID: productID,
+        batchNo: batchNo,
+        price: price,
+        dateOfManufacture: dateOfManufacture,
+      })
       setModal(true)
     } else {
       window.alert('Please fill all the details')
@@ -62,9 +96,15 @@ const ManufacturerDashboard = () => {
       .post(`${backendURL}/product/createProduct`, bodyForAPI)
       .then((res) => {
         window.alert('Product added successfully')
-        setQRCode(res.data?.qrCode)
+
+        setQRCode({ id: res.data?.id, qrCode: res.data?.qrCode })
+        setBrand('')
+        setProductID('')
+        setBatchNo('')
+        setPrice('')
+        setDateOfManufacture('')
+
         setRunAgain(true)
-        // setModal(false)
       })
       .catch((error) => window.alert('Something went wrong'))
   }
@@ -137,9 +177,8 @@ const ManufacturerDashboard = () => {
               <th style={{ width: 200 }}>Product ID</th>
               <th style={{ width: 175 }}>Batch Number</th>
               <th style={{ width: 175 }}>Price</th>
-              <th style={{ width: 175, borderTopRightRadius: 10 }}>
-                Date of Manufacture
-              </th>
+              <th style={{ width: 175 }}>Date of Manufacture</th>
+              <th style={{ width: 100, borderTopRightRadius: 10 }}>Actions</th>
             </tr>
 
             {Data?.length > 0 ? (
@@ -156,19 +195,29 @@ const ManufacturerDashboard = () => {
                   <td>{data?.productID}</td>
                   <td>{data?.batchNo}</td>
                   <td>Rs. {data?.price}</td>
+                  <td>{data?.dateOfManufacture}</td>
                   <td
                     style={{
                       borderBottomRightRadius: i === Data.length - 1 ? 10 : 0,
                     }}
                   >
-                    {data?.dateOfManufacture}
+                    <button
+                      className='viewButton'
+                      onClick={() => {
+                        setModal(true)
+                        setModalData(data)
+                        setQRCode({ id: data?.id, qrCode: data?.qrCode })
+                      }}
+                    >
+                      View
+                    </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr className='tableData'>
                 <td
-                  colSpan={6}
+                  colSpan={7}
                   style={{
                     borderBottomLeftRadius: 10,
                     borderBottomRightRadius: 10,
@@ -183,13 +232,7 @@ const ManufacturerDashboard = () => {
       </div>
       {modal && (
         <Modal
-          data={{
-            brand: brand,
-            productID: productID,
-            batchNo: batchNo,
-            price: price,
-            dateOfManufacture: dateOfManufacture,
-          }}
+          data={modalData}
           details={[
             { label: 'Brand', keyName: 'brand' },
             { label: 'Product ID', keyName: 'productID' },
@@ -199,16 +242,18 @@ const ManufacturerDashboard = () => {
           ]}
           open={setModal}
           okay={finalSubmit}
-          qrCode={qrCode}
+          qrCodeData={qrCode}
           onClose={() => {
             setBrand('')
             setProductID('')
             setBatchNo('')
             setPrice('')
             setDateOfManufacture('')
-            setQRCode('')
+            setQRCode({})
+            setModalData({})
             setModal(false)
           }}
+          viewOnly={!!modalData?.id}
         />
       )}
     </div>

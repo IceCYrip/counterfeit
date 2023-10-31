@@ -1,8 +1,18 @@
 import React from 'react'
 import '../styles/Modal.css'
+import { useNavigate } from 'react-router-dom'
 
-const Modal = ({ data, details, okay, open, qrCode, onClose }) => {
-  console.log('asd', data)
+const Modal = ({
+  data,
+  details,
+  okay,
+  open,
+  qrCodeData,
+  onClose,
+  viewOnly = false,
+}) => {
+  const routeTo = useNavigate()
+
   return (
     <div className='modalWrapper'>
       <div className='modalContainer'>
@@ -22,24 +32,33 @@ const Modal = ({ data, details, okay, open, qrCode, onClose }) => {
           </tbody>
         </table>
 
-        {qrCode && (
+        {!!qrCodeData?.qrCode && (
           <div className='qrCode'>
             <h3>QR CODE GENERATED!</h3>
-            <img src={qrCode} alt='QR Code' className='qrCodeImg' />
+
+            <label>{'(Click on QR Code to see product details)'}</label>
+            <img
+              src={qrCodeData?.qrCode}
+              alt='QR Code'
+              className='qrCodeImg'
+              onClick={() => {
+                routeTo(`/product-details/${qrCodeData?.id}`)
+              }}
+            />
           </div>
         )}
 
         <div className='modalBttnGrp'>
-          {!qrCode && (
+          {!qrCodeData?.id && !viewOnly && (
             <button className='okayButton' onClick={() => okay()}>
               ADD
             </button>
           )}
           <button
             className='cancelButton'
-            onClick={() => (qrCode ? onClose() : open(false))}
+            onClick={() => (!qrCodeData?.id ? onClose() : open(false))}
           >
-            {qrCode ? 'Close' : 'Cancel'}
+            {!qrCodeData?.id || viewOnly ? 'Close' : 'Cancel'}
           </button>
         </div>
       </div>

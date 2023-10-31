@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import './styles/Manufacturer.css'
 import { useNavigate } from 'react-router-dom'
@@ -11,6 +11,12 @@ const Manufacturer = () => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn') || 'false')
+
+  useEffect(() => {
+    !!isLoggedIn && routeTo('/dashboard')
+  }, [])
 
   const login = () => {
     const bodyForAPI = {
@@ -49,7 +55,7 @@ const Manufacturer = () => {
           <div className='inputFieldsContainer'>
             <label htmlFor='password'>Password</label>
             <input
-              type='text'
+              type='password'
               placeholder='Enter Password'
               name='password'
               onChange={(e) => setPassword(e.target.value)}

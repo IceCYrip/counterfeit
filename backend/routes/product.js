@@ -36,7 +36,7 @@ router.post('/createProduct', async (req, res) => {
       }
 
       // The URL you want to encode in the QR code
-      const urlToRedirect = `${frontendServerURL}/${product?._id}`
+      const urlToRedirect = `${frontendServerURL}/product-details/${product?._id}`
 
       // Generate the QR code as a data URL
       qr.toDataURL(urlToRedirect, async (err, data_url) => {
@@ -54,9 +54,9 @@ router.post('/createProduct', async (req, res) => {
             new: true,
           })
         }
-        console.log('inside:', product)
         const data = {
           message: 'Product created Successfully',
+          id: product?._id,
           qrCode: product?.qrCode,
         }
         res.status(200).json(data)

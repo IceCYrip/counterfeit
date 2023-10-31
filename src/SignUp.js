@@ -11,7 +11,8 @@ const SignUp = () => {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [userType, setUserType] = useState('manufacturer')
+  // const [userType, setUserType] = useState('manufacturer')
+  const userType = 'manufacturer'
 
   const routeTo = useNavigate()
 
@@ -22,7 +23,6 @@ const SignUp = () => {
       password,
       userType,
     }
-    console.log('Data: ', bodyForAPI)
 
     axios
       .post(`${backendURL}/auth/createuser`, bodyForAPI)
