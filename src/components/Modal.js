@@ -42,7 +42,7 @@ const Modal = ({
               alt='QR Code'
               className='qrCodeImg'
               onClick={() => {
-                routeTo(`/product-details/${qrCodeData?.id}`)
+                routeTo(`/product-details?id=${qrCodeData?.id}`)
               }}
             />
           </div>

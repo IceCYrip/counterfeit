@@ -36,7 +36,7 @@ router.post('/createProduct', async (req, res) => {
       }
 
       // The URL you want to encode in the QR code
-      const urlToRedirect = `${frontendServerURL}/product-details/${product?._id}`
+      const urlToRedirect = `${frontendServerURL}/product-details?id=${product?._id}`
 
       // Generate the QR code as a data URL
       qr.toDataURL(urlToRedirect, async (err, data_url) => {
@@ -72,7 +72,7 @@ router.post('/createProduct', async (req, res) => {
 router.post('/getProduct', async (req, res) => {
   try {
     if (!!req.body.productID) {
-      let product = await Product.findOne({ productID: req.body.productID })
+      let product = await Product.findById(req.body.productID)
       if (product) {
         const data = {
           id: product._id,
@@ -81,6 +81,7 @@ router.post('/getProduct', async (req, res) => {
           batchNo: product.batchNo,
           price: product.price,
           dateOfManufacture: product.dateOfManufacture,
+          qrCode: product.qrCode,
         }
 
         res.status(200).json(data)
