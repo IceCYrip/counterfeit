@@ -30,6 +30,8 @@ const ManufacturerDashboard = () => {
   const userData = JSON.parse(localStorage.getItem('userData') ?? '')
 
   useEffect(() => {
+    localStorage.setItem('activeMenu', 'Manufacturer')
+
     setRunAgain(false)
 
     axios
@@ -56,15 +58,6 @@ const ManufacturerDashboard = () => {
     if (!modal) {
       setQRCode({})
     }
-    // !modal &&
-    //   setModalData({
-    //     id: '',
-    //     brand: '',
-    //     productID: '',
-    //     batchNo: '',
-    //     price: '',
-    //     dateOfManufacture: '',
-    //   })
   }, [modal])
 
   const addProduct = () => {
@@ -173,12 +166,12 @@ const ManufacturerDashboard = () => {
           <tbody>
             <tr className='tableData'>
               <th style={{ width: 50, borderTopLeftRadius: 10 }}>Sr. No</th>
-              <th style={{ width: 250 }}>Brand</th>
-              <th style={{ width: 200 }}>Product ID</th>
-              <th style={{ width: 175 }}>Batch Number</th>
-              <th style={{ width: 175 }}>Price</th>
+              <th style={{ width: 150 }}>Brand</th>
+              <th style={{ width: 175 }}>Product ID</th>
+              <th style={{ width: 150 }}>Batch Number</th>
+              <th style={{ width: 125 }}>Price</th>
               <th style={{ width: 175 }}>Date of Manufacture</th>
-              <th style={{ width: 100, borderTopRightRadius: 10 }}>Actions</th>
+              <th style={{ width: 90, borderTopRightRadius: 10 }}>Actions</th>
             </tr>
 
             {Data?.length > 0 ? (

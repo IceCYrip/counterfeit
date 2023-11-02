@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './styles/App.css'
 import Navbar from './components/Navbar'
 import { Link } from 'react-router-dom'
@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom'
 function App() {
   const userDataString = localStorage.getItem('userData') ?? ''
   const userData = userDataString ? JSON.parse(userDataString ?? '') : {}
+
+  useEffect(() => {
+    localStorage.setItem('activeMenu', 'home')
+  }, [])
 
   return (
     <div className='homeWrapper'>

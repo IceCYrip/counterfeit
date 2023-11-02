@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/Navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -12,10 +12,14 @@ const Index = () => {
 
   const routeTo = useNavigate()
 
-  const activeMenu = localStorage.getItem('activeMenu')
+  const [activeMenu, setActiveMenu] = useState()
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('isLoggedIn') || 'false'
   )
+
+  useEffect(() => {
+    setActiveMenu(localStorage.getItem('activeMenu'))
+  }, [activeMenu])
 
   const setMenu = (activeMenu) => {
     localStorage.setItem('activeMenu', activeMenu)
