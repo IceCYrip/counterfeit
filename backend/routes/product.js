@@ -145,4 +145,24 @@ router.post('/getQRCode', async (req, res) => {
   }
 })
 
+//Route 5: Download product's QR Code
+router.post('/download', async (req, res) => {
+  try {
+    if (!!req.body.productID) {
+      let product = await Product.findOne({ _id: req.body.productID })
+      if (product) {
+        // res.status(200).send(product?.qrCode)
+        res.status(200).download('E:\tempp', product?.qrCode)
+      } else {
+        res.status(404).send('Product not found')
+      }
+    } else {
+      res.status(400).json({ message: 'Product ID not found' })
+    }
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send('Internal Server Error')
+  }
+})
+
 module.exports = router
