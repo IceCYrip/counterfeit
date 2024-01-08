@@ -52,7 +52,7 @@ const ManufacturerDashboard = () => {
         )
       })
       .catch((error) => window.alert('Something went wrong'))
-  }, [runAgain])
+  }, [runAgain, userData])
 
   useEffect(() => {
     if (!modal) {
@@ -102,7 +102,7 @@ const ManufacturerDashboard = () => {
       .catch((error) => window.alert('Something went wrong'))
   }
   return (
-    <div className='manufacturerWrapper'>
+    <>
       <div className='manufacturerBody'>
         <h1>Products</h1>
 
@@ -249,7 +249,7 @@ const ManufacturerDashboard = () => {
           viewOnly={!!modalData?.id}
         />
       )}
-    </div>
+    </>
   )
 }
 

@@ -1,24 +1,19 @@
 .loginWrapper {
-  background-color: rgba(217, 243, 254, 1);
-  height: 100vh;
-}
-
-.loginBody {
-  /* height: 91vh; */
-  height: 90vh;
+  height: 96.5vh;
+  margin-top: 3.5vh;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  user-select: none;
 }
 
 .loginBody > h1 {
-  text-transform: uppercase;
   margin-top: 0%;
   margin-bottom: 15px;
+
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .loginContainer {
