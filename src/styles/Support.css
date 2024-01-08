@@ -1,0 +1,50 @@
+.supportWrapper {
+  height: 96.5vh;
+  margin-top: 3.5vh;
+
+  display: grid;
+  place-items: center;
+}
+
+.supportBody > h1,
+.containerHeader > h3 {
+  margin: 0px;
+
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.containerHeader > h3 {
+  padding: 10px;
+}
+
+.container {
+  border-radius: 10px;
+  background-color: #bbe1f2;
+
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+}
+
+.containerHeader {
+  background-color: #96c8dd;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+  border-bottom: 1px solid rgba(128, 128, 128, 0.75);
+}
+
+.contactDetails td,
+.reachOutText {
+  padding: 5px 20px;
+}
+
+.reachOutText {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.flexBox {
+  margin-top: 3vw;
+  display: flex;
+  column-gap: 10vw;
+}
