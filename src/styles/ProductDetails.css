@@ -1,5 +1,6 @@
 .productDetailsWrapper {
-  height: 92vh;
+  height: 91vh;
+  margin-top: 9vh;
   background-color: rgba(217, 243, 254, 1);
 
   display: flex;

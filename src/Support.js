@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Navbar from './components/Navbar'
-import styles from './styles/Support.css'
+import './styles/Support.css'
 
 const Support = () => {
   useEffect(() => {

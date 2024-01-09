@@ -3,8 +3,7 @@
 }
 
 .signUpBody {
-  height: 92vh;
-  /* height: 90.2vh; */
+  height: 100vh;
 
   display: flex;
   align-items: center;

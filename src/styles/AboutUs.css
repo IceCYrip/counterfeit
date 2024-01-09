@@ -1,0 +1,56 @@
+.aboutUsWrapper {
+  height: 91vh;
+  margin-top: 9vh;
+
+  display: grid;
+  place-items: center;
+  /* display: flex;
+  justify-content: center; */
+}
+
+.aboutUsBody {
+  width: 60%;
+  /* max-width: 60%; */
+  /* min-width: 300px; */
+  height: max-content;
+  /* margin-top: 8vh; */
+  padding: 50px;
+
+  background-color: white;
+  border-radius: 50px;
+}
+
+.aboutUsBody h1,
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 0px;
+  margin-bottom: 50px;
+}
+
+.aboutUsBody p {
+  font-size: large;
+  text-indent: 75px;
+
+  margin-bottom: 100px;
+}
+
+.members {
+  display: flex;
+  justify-content: center;
+  column-gap: 75px;
+}
+
+.memberContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.memberPhotos {
+  width: 125px;
+  border-radius: 50%;
+}

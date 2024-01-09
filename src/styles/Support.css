@@ -1,9 +1,13 @@
 .supportWrapper {
-  height: 96.5vh;
-  margin-top: 3.5vh;
+  height: 91vh;
+  margin-top: 9vh;
 
   display: grid;
   place-items: center;
+}
+
+.supportBody {
+  margin-bottom: 10vh;
 }
 
 .supportBody > h1,

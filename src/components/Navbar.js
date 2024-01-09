@@ -57,7 +57,8 @@ const Index = () => {
         ))}
         {isLoggedIn && (
           <img
-            src='/Logout.svg'
+            // src='/Logout.svg'
+            src='/logout1.svg'
             alt='logout'
             className='logoutImg'
             onClick={() => logout()}

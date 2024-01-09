@@ -1,0 +1,25 @@
+.buyerSectionWrapper {
+  height: 91vh;
+  margin-top: 9vh;
+
+  display: grid;
+  place-items: center;
+}
+
+.buyerSectionBody h2 {
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+.qrScannerArea {
+  border-radius: 20px;
+  height: 400px;
+  width: 400px;
+  background-color: white;
+  border: 1px solid grey;
+
+  display: grid;
+  place-items: center;
+}
