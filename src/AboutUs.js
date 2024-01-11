@@ -22,9 +22,9 @@ const AboutUs = () => {
     },
     {
       id: 3,
-      fullName: "Yashasvee Sawal",
-      src: "/Yashasvee.jpeg",
-      alt: `Yashasvee's Photo`,
+      fullName: "Yashasvii Sawal",
+      src: "/Yashasvii.jpeg",
+      alt: `Yashasvii's Photo`,
     },
   ];
   return (
