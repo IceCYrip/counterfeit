@@ -1,16 +1,37 @@
-import React, { useEffect } from 'react'
-import Navbar from './components/Navbar'
-import './styles/AboutUs.css'
+import React, { useEffect } from "react";
+import Navbar from "./components/Navbar";
+import "./styles/AboutUs.css";
 
 const AboutUs = () => {
   useEffect(() => {
-    localStorage.setItem('activeMenu', 'About Us')
-  }, [])
+    localStorage.setItem("activeMenu", "About Us");
+  }, []);
+
+  const memberDetails = [
+    {
+      id: 1,
+      fullName: "Kshitija Karande",
+      src: "/Kshitija.jpeg",
+      alt: `Kshitija's Photo`,
+    },
+    {
+      id: 2,
+      fullName: "Utkarsha Shelar",
+      src: "/Utkarsha.jpeg",
+      alt: `Utkarsha's Photo`,
+    },
+    {
+      id: 3,
+      fullName: "Yashasvii Sawal",
+      src: "/Yashasvii.jpeg",
+      alt: `Yashasvii's Photo`,
+    },
+  ];
   return (
     <>
       <Navbar />
-      <div className='aboutUsWrapper'>
-        <div className='aboutUsBody'>
+      <div className="aboutUsWrapper">
+        <div className="aboutUsBody">
           <h1>About Us</h1>
           <p>
             Detectify is your one stop solution to verify the authenticity of
@@ -19,36 +40,46 @@ const AboutUs = () => {
             of your purchase on your screen in a second.
           </p>
           <h2>Our Members</h2>
-          <div className='members'>
-            <div className='memberContainer'>
+          <div className="members">
+            {memberDetails?.map((person) => (
+              <div className="memberContainer" key={person.id}>
+                <img
+                  className="memberPhotos"
+                  src={`${person?.src}`}
+                  alt={`${person?.alt}`}
+                />
+                <span>{person?.fullName}</span>
+              </div>
+            ))}
+            {/* <div className="memberContainer">
               <img
-                className='memberPhotos'
-                src='/Kshitija.jpeg'
+                className="memberPhotos"
+                src="/Kshitija.jpeg"
                 alt="Kshitija's Photo"
               />
               <span>Kshitija Karande</span>
             </div>
-            <div className='memberContainer'>
+            <div className="memberContainer">
               <img
-                className='memberPhotos'
-                src='/Utkarsha.jpeg'
+                className="memberPhotos"
+                src="/Utkarsha.jpeg"
                 alt="Utkarsha's Photo"
               />
               <span>Utkarsha idkHerLastName</span>
             </div>
-            <div className='memberContainer'>
+            <div className="memberContainer">
               <img
-                className='memberPhotos'
-                src='/Yashasvee.jpeg'
+                className="memberPhotos"
+                src="/Yashasvee.jpeg"
                 alt="Yashasvee's Photo"
               />
               <span>Yashasvee idkHerLastName</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default AboutUs
+export default AboutUs;
