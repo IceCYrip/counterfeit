@@ -3,24 +3,25 @@ import Navbar from './components/Navbar'
 import axios from 'axios'
 import backendServerURL from './url'
 import './styles/ProductDetails.css'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const ProductDetails = () => {
   const [productDetails, setProductDetails] = useState({})
 
   const routeTo = useNavigate()
+  const { id } = useParams()
 
   useEffect(() => {
     axios
       .post(`${backendServerURL}/product/getProduct`, {
-        productID: window.location.href.split('=')[1],
+        productID: id,
       })
       .then((res) => {
         console.log('resData', res.data)
         setProductDetails(res.data)
       })
       .catch((error) => console.error(error))
-  }, [])
+  }, [id])
 
   return (
     <div>

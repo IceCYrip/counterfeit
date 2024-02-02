@@ -52,7 +52,7 @@ const ManufacturerDashboard = () => {
         )
       })
       .catch((error) => window.alert('Something went wrong'))
-  }, [runAgain, userData])
+  }, [runAgain])
 
   useEffect(() => {
     if (!modal) {

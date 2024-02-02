@@ -25,7 +25,7 @@ root.render(
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/verify' element={<Verify />} />
-        <Route path='/product-details' element={<ProductDetails />} />
+        <Route path='/product-details/:id?' element={<ProductDetails />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -1,6 +1,5 @@
 import React from 'react'
 import '../styles/Modal.css'
-import { useNavigate } from 'react-router-dom'
 
 const Modal = ({
   data,
@@ -11,7 +10,14 @@ const Modal = ({
   onClose,
   viewOnly = false,
 }) => {
-  const routeTo = useNavigate()
+  const saveQRCode = () => {
+    const link = document.createElement('a')
+    link.href = qrCodeData?.qrCode
+    link.download = `${data?.brand}_${data?.productID}` // Set the desired file name with extension
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
 
   return (
     <div className='modalWrapper'>
@@ -36,14 +42,12 @@ const Modal = ({
           <div className='qrCode'>
             <h3>QR CODE GENERATED!</h3>
 
-            <label>{'(Click on QR Code to see product details)'}</label>
+            <label>{'(Click on QR Code to download)'}</label>
             <img
               src={qrCodeData?.qrCode}
               alt='QR Code'
               className='qrCodeImg'
-              onClick={() => {
-                routeTo(`/product-details?id=${qrCodeData?.id}`)
-              }}
+              onClick={saveQRCode}
             />
           </div>
         )}
