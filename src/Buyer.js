@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import "./styles/Buyer.css";
+import "./styles/SweetAlert2.css";
 import QrScanner from "react-qr-scanner";
 import Swal from "sweetalert2";
 
@@ -65,7 +66,15 @@ const Buyer = () => {
 
   const handleError = (err) => {
     console.error(err);
-    alert("Something went wrong. Please scan again");
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Please scan again.",
+      customClass: {
+        confirmButton: "btnError",
+      },
+      buttonsStyling: false,
+    });
   };
 
   return (

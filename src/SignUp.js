@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
-import Navbar from './components/Navbar'
-import './styles/SignUp.css'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import Navbar from "./components/Navbar";
+import "./styles/SignUp.css";
+import "./styles/SweetAlert2.css";
 
-import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
-import backendURL from './url'
+import axios from "axios";
+
+import backendURL from "./url";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   // const [userType, setUserType] = useState('manufacturer')
-  const userType = 'manufacturer'
+  const userType = "manufacturer";
 
-  const routeTo = useNavigate()
+  const routeTo = useNavigate();
 
   const signUp = () => {
     const bodyForAPI = {
@@ -22,64 +25,74 @@ const SignUp = () => {
       email,
       password,
       userType,
-    }
+    };
 
     axios
       .post(`${backendURL}/auth/createuser`, bodyForAPI)
       .then((res) => {
-        window.alert('Account Created Successfully. Please login now')
-        routeTo('/manufacturer')
+        window.alert("Account Created Successfully. Please login now");
+        routeTo("/manufacturer");
       })
-      .catch((error) => window.alert('Something went wrong'))
-  }
+      .catch((error) =>
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+          customClass: {
+            confirmButton: "btnError",
+          },
+          buttonsStyling: false,
+        })
+      );
+  };
 
   return (
-    <div className='signUpWrapper'>
+    <div className="signUpWrapper">
       <Navbar />
-      <div className='signUpBody'>
-        <div className='bodyLeft'>
-          <img className='signUpImage' src='/loginPage.png' alt='Sign Up' />
+      <div className="signUpBody">
+        <div className="bodyLeft">
+          <img className="signUpImage" src="/loginPage.png" alt="Sign Up" />
         </div>
-        <div className='bodyRight'>
-          <div className='formContainer'>
+        <div className="bodyRight">
+          <div className="formContainer">
             <h1>Sign Up</h1>
-            <div className='signUpFieldsContainer'>
-              <label htmlFor='nameOfUser'>Name</label>
+            <div className="signUpFieldsContainer">
+              <label htmlFor="nameOfUser">Name</label>
               <input
-                type='text'
-                placeholder='Enter your name'
-                name='nameOfUser'
+                type="text"
+                placeholder="Enter your name"
+                name="nameOfUser"
                 onChange={(e) => setFullName(e.target.value)}
               />
             </div>
-            <div className='signUpFieldsContainer'>
-              <label htmlFor='email'>Email</label>
+            <div className="signUpFieldsContainer">
+              <label htmlFor="email">Email</label>
               <input
-                type='text'
-                placeholder='Enter your email'
-                name='email'
+                type="text"
+                placeholder="Enter your email"
+                name="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className='signUpFieldsContainer'>
-              <label htmlFor='password'>Password</label>
+            <div className="signUpFieldsContainer">
+              <label htmlFor="password">Password</label>
               <input
-                type='password'
-                placeholder='Create a password'
-                name='password'
+                type="password"
+                placeholder="Create a password"
+                name="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            <div className='signUpBttnGrp'>
-              <button className='signInButton' onClick={() => signUp()}>
+            <div className="signUpBttnGrp">
+              <button className="signInButton" onClick={() => signUp()}>
                 Sign Up
               </button>
-              <label className='signInText'>
-                Already have an account?{' '}
+              <label className="signInText">
+                Already have an account?{" "}
                 <label
-                  className='signInLink'
-                  onClick={() => routeTo('/manufacturer')}
+                  className="signInLink"
+                  onClick={() => routeTo("/manufacturer")}
                 >
                   Sign in
                 </label>
@@ -89,7 +102,7 @@ const SignUp = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;
